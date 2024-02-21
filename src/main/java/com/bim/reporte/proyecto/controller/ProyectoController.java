@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bim.reporte.proyecto.entity.Proyecto;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
+import com.bim.reporte.proyecto.response.ListaProyectoRecursoResponse;
 import com.bim.reporte.proyecto.response.ListaProyectoResponse;
 import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
 import com.bim.reporte.proyecto.service.ProyectoService;
@@ -33,6 +35,11 @@ public class ProyectoController {
 	@GetMapping("/listaproyectos")
 	public ResponseEntity<List<ListaProyectoResponse>> listar(){
 		return ResponseEntity.ok(proyectoService.listaProyectos());
+	}
+	
+	@GetMapping("/listaproyectosRecurso")
+	public ResponseEntity<List<Proyecto>> listarProy(){
+		return ResponseEntity.ok(proyectoService.listaProyectosRecurso());
 	}
 	
 	@PostMapping("/guardarproyecto")

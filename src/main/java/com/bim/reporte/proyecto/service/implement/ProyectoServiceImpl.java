@@ -17,6 +17,8 @@ import com.bim.reporte.proyecto.entity.CatTipoProyecto;
 import com.bim.reporte.proyecto.entity.DetalleProyecto;
 import com.bim.reporte.proyecto.entity.Objetivo;
 import com.bim.reporte.proyecto.entity.Proyecto;
+
+import com.bim.reporte.proyecto.entity.Usuario;
 import com.bim.reporte.proyecto.feign.TipoProyectoFeign;
 import com.bim.reporte.proyecto.repository.CatDependenciaRepo;
 import com.bim.reporte.proyecto.repository.CatDocRepo;
@@ -31,10 +33,12 @@ import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
 import com.bim.reporte.proyecto.response.DetalleProyectoResponse;
+import com.bim.reporte.proyecto.response.ListaProyectoRecursoResponse;
 import com.bim.reporte.proyecto.response.ListaProyectoResponse;
 import com.bim.reporte.proyecto.response.ProyectoResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
+import com.bim.reporte.proyecto.response.feign.gerencia.PersonaResponse;
 import com.bim.reporte.proyecto.service.ProyectoService;
 
 @Service
@@ -86,6 +90,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 				.map(proyecto -> 
 				new ListaProyectoResponse(
 						new ProyectoResponse(proyecto.getIdProyecto(), proyecto.getProyecto()),
+						//proyecto.getRegistrations(),
 						new DetalleProyectoResponse(
 								proyecto.getDetalleProyecto().getIdDetalle(),
 								proyecto.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto(),
@@ -225,6 +230,45 @@ public class ProyectoServiceImpl implements ProyectoService{
 			detProy.setHrsAtencion(detalleProyectoRequest.getHrsAtencion());
 			proyectoMod.setDetalleProyecto(detProy);
 		}*/
+	}
+
+	@Override
+	public List<Proyecto> listaProyectosRecurso() {
+		// TODO Auto-generated method stub
+		List<Proyecto> listaProyectoEnt = proyectoRepo.findAll();
+		
+		List<ListaProyectoRecursoResponse> listar = listaProyectoEnt.stream()
+				.map(lst -> new ListaProyectoRecursoResponse(
+						null,lst.getUsuario()
+						)
+						).collect(Collectors.toList());
+		return listaProyectoEnt;
+		/*List<ListaProyectoRecursoResponse> listaProyectoResponselst = new ArrayList<>();
+		
+		ListaProyectoRecursoResponse listaProyectoResponse = new ListaProyectoRecursoResponse();
+		List<PersonaResponse> listaPersonaRes = new ArrayList<>();
+		for(Proyecto proyIt : listaProyectoEnt) {
+			ProyectoResponse proyectoResponse = new ProyectoResponse();
+			
+			proyectoResponse.setIdProyecto(proyIt.getIdProyecto());
+			proyectoResponse.setProyecto(proyIt.getProyecto());
+			
+			
+			
+			for(ProyectoRecurso proyRec: proyIt.getRegistrations()) {
+				PersonaResponse personaResponse = new PersonaResponse();
+				proyRec.getUsuario().getNombre();
+				
+				//listaPersonaRes.add(personaResponse);
+			}
+			
+			listaProyectoResponse.setProyectoResponse(proyectoResponse);
+			listaProyectoResponse.setRecurso(listaPersonaRes);
+			listaProyectoResponselst.add(listaProyectoResponse);
+			
+		}
+		
+		return listaProyectoResponselst;*/
 	}
 
 	

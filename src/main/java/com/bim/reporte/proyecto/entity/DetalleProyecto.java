@@ -2,6 +2,8 @@ package com.bim.reporte.proyecto.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +30,7 @@ public class DetalleProyecto {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_proyecto",referencedColumnName = "id_proyecto")
+	@JsonIgnore
 	public Proyecto catProyecto;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
