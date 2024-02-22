@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
@@ -14,6 +15,16 @@ import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
 
 @FeignClient(name="mantenimiento-service",url = "http://localhost:8081")
 public interface TipoProyectoFeign {
+	
+	@GetMapping("/catalogos/tipoDependencia")
+	public List<TipoDependenciaResponse> listarTipoDependencia();
+	
+	@PutMapping("/catalogos/modificarDependencia/{id}")
+	public void modificarDependencia ();
+	
+	@PostMapping("/crearDependencia")
+	public void crearDependencia ();
+	
 	@GetMapping("/catalogos/tipoProyecto")
 	public List<TipoProyectoResponse> listarTipoProyecto();
 	
@@ -22,9 +33,6 @@ public interface TipoProyectoFeign {
 	
 	@GetMapping("/catalogos/tipoFase")
 	public List<TipoFaseResponse> listarTipoFase();
-	
-	@GetMapping("/catalogos/tipoDependencia")
-	public List<TipoDependenciaResponse> listarTipoDependencia();
 	
 	@GetMapping("/catalogos/tipoEstado")
 	public List<TipoEstadoProyectoResponse> listarTipoEstado();
