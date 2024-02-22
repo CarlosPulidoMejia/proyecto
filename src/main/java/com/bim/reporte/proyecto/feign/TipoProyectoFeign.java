@@ -25,15 +25,43 @@ public interface TipoProyectoFeign {
 	@PostMapping("/crearDependencia")
 	public void crearDependencia ();
 	
-	@GetMapping("/catalogos/tipoProyecto")
-	public List<TipoProyectoResponse> listarTipoProyecto();
 	
 	@GetMapping("/catalogos/tipoDocumentacion")
 	public List<TipoDocumentacionResponse> listarTipoDocumentacion();
 	
-	@GetMapping("/catalogos/tipoFase")
-	public List<TipoFaseResponse> listarTipoFase();
+	@PutMapping("/modificarDocumentacion/{id}")
+	public void modificarDocumentacion ();
+	
+	@PostMapping("/crearDocumentacion")
+	public void crearDocumentacion ();
+	
 	
 	@GetMapping("/catalogos/tipoEstado")
 	public List<TipoEstadoProyectoResponse> listarTipoEstado();
+	
+	@PutMapping("/modificarEstado/{id}")
+	public void modificarEstado ();
+	
+	@PostMapping("/crearEstado")
+	public void crearEstado ();
+	
+	
+	@GetMapping("/catalogos/tipoFase")
+	public List<TipoFaseResponse> listarTipoFase();
+	
+	@PutMapping("/modificarFase/{id}")
+	public void modificarFase ();
+	
+	@PostMapping("/crearFase")
+	public void crearFase ();
+	
+	
+	@GetMapping("/catalogos/tipoProyecto")
+	public List<TipoProyectoResponse> listarTipoProyecto();
+	
+	@PutMapping("/modificarTipoProyecto/{id}")
+	public void modificarTipoProyecto ();
+	
+	@PostMapping("/crearTipoProyecto")
+	public void crearTipoProyecto ();
 }
