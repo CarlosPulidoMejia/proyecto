@@ -1,6 +1,5 @@
 package com.bim.reporte.proyecto.entity;
 
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,8 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Entity

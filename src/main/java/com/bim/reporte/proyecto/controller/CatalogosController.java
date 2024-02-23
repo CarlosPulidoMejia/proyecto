@@ -13,7 +13,6 @@ import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
 import com.bim.reporte.proyecto.response.feign.TipoFaseResponse;
 import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
 import com.bim.reporte.proyecto.service.CatalogoService;
-import com.bim.reporte.proyecto.service.ProyectoService;
 
 @RestController
 public class CatalogosController {

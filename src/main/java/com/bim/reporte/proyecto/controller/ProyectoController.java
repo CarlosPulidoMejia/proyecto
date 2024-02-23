@@ -18,9 +18,7 @@ import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
 import com.bim.reporte.proyecto.response.ListaProyectoRecursoResponse;
 import com.bim.reporte.proyecto.response.ListaProyectoResponse;
-import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
 import com.bim.reporte.proyecto.service.ProyectoService;
-import com.bim.reporte.proyecto.service.implement.ProyectoServiceImpl;
 
 @RestController
 @CrossOrigin("*")
@@ -40,6 +38,21 @@ public class ProyectoController {
 	@GetMapping("/listaproyectosRecurso")
 	public ResponseEntity<List<Proyecto>> listarProy(){
 		return ResponseEntity.ok(proyectoService.listaProyectosRecurso());
+	}
+	
+	@GetMapping("/listaProyectosGerencia/{idGerencia}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoGerencia(@PathVariable("idGerencia") int idGerencia){
+		return ResponseEntity.ok(proyectoService.listaProyectosGerencia(idGerencia));
+	}
+	
+	@GetMapping("/listaProyectosGerenciaRecurso/{idGerencia}/{idRecurso}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoGerenciaRecurso(@PathVariable("idGerencia") int idGerencia,@PathVariable("idRecurso") int idRecurso){
+		return ResponseEntity.ok(proyectoService.listaProyectosGerenciaRecurso(idGerencia,idRecurso));
+	}
+	
+	@GetMapping("/listaProyectosRecurso/{idRecurso}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoRecurso(@PathVariable("idRecurso") int idGerencia){
+		return ResponseEntity.ok(proyectoService.listaProyectosRecurso(idGerencia));
 	}
 	
 	@PostMapping("/guardarproyecto")

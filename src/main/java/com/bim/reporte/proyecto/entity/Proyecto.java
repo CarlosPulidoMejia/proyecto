@@ -1,6 +1,5 @@
 package com.bim.reporte.proyecto.entity;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -61,7 +60,16 @@ public class Proyecto {
 	            joinColumns = @JoinColumn(name = "id_proyecto"),
 	            inverseJoinColumns = @JoinColumn(name = "id_usuario")
 	            )
-	    private Set<Usuario> usuario = new HashSet<>();
+	    private Set<Usuario> usuario;
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "proyecto_recurso",
+            joinColumns = @JoinColumn(name = "id_proyecto"),
+            inverseJoinColumns = @JoinColumn(name = "id_gerencia")
+            )
+    private Set<Gerencia> gerencia;
 	 
 	/*@OneToMany(mappedBy = "proyecto")
     Set<ProyectoRecurso> registrations;*/

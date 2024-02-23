@@ -2,7 +2,6 @@ package com.bim.reporte.proyecto.service;
 
 import java.util.List;
 
-import com.bim.reporte.proyecto.entity.DetalleProyecto;
 import com.bim.reporte.proyecto.entity.Proyecto;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
@@ -10,14 +9,18 @@ import com.bim.reporte.proyecto.request.ProyectoRequest;
 import com.bim.reporte.proyecto.response.ListaProyectoRecursoResponse;
 import com.bim.reporte.proyecto.response.ListaProyectoResponse;
 import com.bim.reporte.proyecto.response.ProyectoResponse;
-import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
-import com.bim.reporte.proyecto.response.feign.TipoProyectoResponse;
 
 public interface ProyectoService {
 
 	public List<ListaProyectoResponse> listaProyectos();
 	
 	public List<Proyecto> listaProyectosRecurso();
+	
+	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia);
+	
+	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
+	
+	public List<ListaProyectoRecursoResponse> listaProyectosRecurso(int idRecurso);
 	
 	public ProyectoResponse guardarProyecto(ProyectoRequest proyectoRequest);
 	
