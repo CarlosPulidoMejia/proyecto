@@ -1,10 +1,9 @@
 package com.bim.reporte.proyecto.response.feign.gerencia;
 
 
-import java.util.List;
+
 import java.util.Set;
 
-import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.usuarios.RolResponse;
 
 import lombok.Data;

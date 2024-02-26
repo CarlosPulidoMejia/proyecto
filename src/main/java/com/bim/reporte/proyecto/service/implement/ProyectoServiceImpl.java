@@ -17,7 +17,6 @@ import com.bim.reporte.proyecto.entity.CatEstadoProyecto;
 import com.bim.reporte.proyecto.entity.CatFase;
 import com.bim.reporte.proyecto.entity.CatTipoProyecto;
 import com.bim.reporte.proyecto.entity.DetalleProyecto;
-import com.bim.reporte.proyecto.entity.Gerencia;
 import com.bim.reporte.proyecto.entity.Objetivo;
 import com.bim.reporte.proyecto.entity.Proyecto;
 import com.bim.reporte.proyecto.entity.Usuario;
@@ -28,7 +27,6 @@ import com.bim.reporte.proyecto.repository.CatEstadoRepo;
 import com.bim.reporte.proyecto.repository.CatFaseRepo;
 import com.bim.reporte.proyecto.repository.CatTipoProyRepo;
 import com.bim.reporte.proyecto.repository.DetalleProyectoRepo;
-import com.bim.reporte.proyecto.repository.GerenciaRepo;
 import com.bim.reporte.proyecto.repository.ObjetivoRepo;
 import com.bim.reporte.proyecto.repository.ProyectoRepo;
 import com.bim.reporte.proyecto.repository.UsuarioRepo;
@@ -77,8 +75,6 @@ public class ProyectoServiceImpl implements ProyectoService{
 	@Autowired
 	private UsuarioRepo repo;
 	
-	@Autowired
-	private GerenciaRepo gerenciaRepo;
 	
 	
 	
@@ -131,7 +127,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		proyecto.setProyecto(proyectoRequest.getProyecto());
 		
 		Set<Usuario> usuarioSet = new HashSet<>();
-		Set<Gerencia> gerenciaSet = new HashSet<>();
+		//Set<Gerencia> gerenciaSet = new HashSet<>();
 		
 		Usuario usu = repo.findById(1).orElseThrow();
 		
@@ -143,7 +139,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		
 		proyecto.getUsuario().add(usu);
 		
-		Gerencia gerenEnt = gerenciaRepo.findById(1).orElseThrow();
+		//Gerencia gerenEnt = gerenciaRepo.findById(1).orElseThrow();
 		
 		//gerenEnt.setIdGerencia();
 		

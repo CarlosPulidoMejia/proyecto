@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosResponse;

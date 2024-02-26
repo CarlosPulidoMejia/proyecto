@@ -1,7 +1,5 @@
 package com.bim.reporte.proyecto.response.feign.gerencia;
 
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
