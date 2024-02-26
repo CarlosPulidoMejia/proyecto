@@ -1,5 +1,7 @@
 package com.bim.reporte.proyecto.response.feign.gerencia;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +16,6 @@ public class PersonaResponse {
 	private String apellido;
 	private String correo;
 	private boolean status;
+	//private Set<GerenciaResponse> gerencia;
 	
 }

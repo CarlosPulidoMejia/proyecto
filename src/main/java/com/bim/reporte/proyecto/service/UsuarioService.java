@@ -5,11 +5,14 @@ import java.util.List;
 import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
+import com.bim.reporte.proyecto.response.feign.gerencia.RecursosResponse;
 
 
 public interface UsuarioService {
 
 	public List<UsuarioResponseFeign> listarUsuarios();
+	
+	public List<RecursosResponse> listarUsuariosTodo();
 	
 	public List<GerenciaResponse> listaGerencias();
 	

@@ -25,6 +25,9 @@ public class Objetivo {
 	
 	private String detalle;
 	
+	@Column(name = "comentario_detalle")
+	private String comentarioDetalle;
+	
 	private String fechaCorteUno;
 	
 	private String fechaCorteDos;

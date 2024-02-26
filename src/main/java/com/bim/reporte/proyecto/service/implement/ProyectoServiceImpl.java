@@ -2,8 +2,10 @@ package com.bim.reporte.proyecto.service.implement;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,10 @@ import com.bim.reporte.proyecto.entity.CatEstadoProyecto;
 import com.bim.reporte.proyecto.entity.CatFase;
 import com.bim.reporte.proyecto.entity.CatTipoProyecto;
 import com.bim.reporte.proyecto.entity.DetalleProyecto;
+import com.bim.reporte.proyecto.entity.Gerencia;
 import com.bim.reporte.proyecto.entity.Objetivo;
 import com.bim.reporte.proyecto.entity.Proyecto;
-
+import com.bim.reporte.proyecto.entity.Usuario;
 import com.bim.reporte.proyecto.feign.TipoProyectoFeign;
 import com.bim.reporte.proyecto.repository.CatDependenciaRepo;
 import com.bim.reporte.proyecto.repository.CatDocRepo;
@@ -25,8 +28,10 @@ import com.bim.reporte.proyecto.repository.CatEstadoRepo;
 import com.bim.reporte.proyecto.repository.CatFaseRepo;
 import com.bim.reporte.proyecto.repository.CatTipoProyRepo;
 import com.bim.reporte.proyecto.repository.DetalleProyectoRepo;
+import com.bim.reporte.proyecto.repository.GerenciaRepo;
 import com.bim.reporte.proyecto.repository.ObjetivoRepo;
 import com.bim.reporte.proyecto.repository.ProyectoRepo;
+import com.bim.reporte.proyecto.repository.UsuarioRepo;
 import com.bim.reporte.proyecto.request.DetalleObjetivo;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
@@ -69,6 +74,12 @@ public class ProyectoServiceImpl implements ProyectoService{
 	@Autowired
 	TipoProyectoFeign proyectoFeign;
 	
+	@Autowired
+	private UsuarioRepo repo;
+	
+	@Autowired
+	private GerenciaRepo gerenciaRepo;
+	
 	
 	
 	@Override
@@ -110,9 +121,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 
 	@Override
 	public ProyectoResponse guardarProyecto(ProyectoRequest proyectoRequest) {
-		// TODO Auto-generated method stub
-		////Proyecto creatProy = new Proyecto(proyectoRequest.getProyecto());
-		
+
 		Proyecto proyecto = new Proyecto();
 		
 		System.out.println("nombre: " + proyectoRequest.getIdProyecto()); 
@@ -121,10 +130,39 @@ public class ProyectoServiceImpl implements ProyectoService{
 		System.out.println("Fecha fin: " + proyectoRequest.getFechaFin());
 		proyecto.setProyecto(proyectoRequest.getProyecto());
 		
-		//System.out.println("id:" + proye.getIdProyecto());
+		Set<Usuario> usuarioSet = new HashSet<>();
+		Set<Gerencia> gerenciaSet = new HashSet<>();
 		
+		Usuario usu = repo.findById(1).orElseThrow();
+		
+		
+		
+	    usuarioSet.add(usu);
+		
+		proyecto.setUsuario(usuarioSet);
+		
+		proyecto.getUsuario().add(usu);
+		
+		Gerencia gerenEnt = gerenciaRepo.findById(1).orElseThrow();
+		
+		//gerenEnt.setIdGerencia();
+		
+		System.out.println("IP Proyecto: " + proyecto.getIdProyecto());
+		
+		
+		
+		//gerenciaSet.add(gerenEnt);
+		
+		//proyecto.setGerencia(gerenciaSet);
+		
+		//proyecto.getGerencia().add(gerenEnt);
+	
 		
 		Proyecto proye = proyectoRepo.save(proyecto);
+		
+		System.out.println("ID_PROECTO: " + proye.getIdProyecto());
+		
+		proyectoRepo.actualizarGerencia(1,proye.getIdProyecto());
 		
 		DetalleProyecto det = new DetalleProyecto();
 		
