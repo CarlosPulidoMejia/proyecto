@@ -24,6 +24,13 @@ public class Usuario {
 	@Column(name = "nombre_vch")
 	private String nombre;
 	
+	@Column(name = "apellido_vch")
+	private String apellido;
+
+	@Column(name = "correo_vch")
+	private String correo;
+	
+	
 	/*@ManyToMany(mappedBy = "usuarios")
 	@JsonIgnore
     private List<Proyecto> proyectos;*/

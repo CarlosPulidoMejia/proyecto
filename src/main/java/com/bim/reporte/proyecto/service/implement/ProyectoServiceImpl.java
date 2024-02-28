@@ -90,7 +90,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		detalleProyectoResponse.setHrsatencion(0);
 		
 		p*/
-		
+		/*
 		List<ListaProyectoResponse> detalleResponses = lista.stream()
 				.map(proyecto -> 
 				new ListaProyectoResponse(
@@ -112,7 +112,45 @@ public class ProyectoServiceImpl implements ProyectoService{
 						//proyecto.getProyecto())
 				).collect(Collectors.toList());
 		
-		return detalleResponses;
+		*/
+		
+		List<ListaProyectoResponse> lstProyectoResponses = lista.stream()
+				.map(lstProyecto -> {
+					ProyectoResponse proyectoResponse = new ProyectoResponse();
+					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
+					ListaProyectoResponse listaProyectoResponse = new ListaProyectoResponse();
+					proyectoResponse.setIdProyecto(lstProyecto.getIdProyecto());
+					proyectoResponse.setProyecto(lstProyecto.getProyecto());
+					listaProyectoResponse.setProyectoResponse(proyectoResponse);
+					
+					detalleProyectoResponse.setAvance(lstProyecto.getDetalleProyecto().getAvance());
+					detalleProyectoResponse.setDependenciaProy(lstProyecto.getDetalleProyecto().getCatDependencias().getTipoDependencia());
+					detalleProyectoResponse.setDocProy(lstProyecto.getDetalleProyecto().getCatDocumentacion().getTipoDocumentacion());
+					detalleProyectoResponse.setEstadoProy(lstProyecto.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
+					detalleProyectoResponse.setFaseProy(lstProyecto.getDetalleProyecto().getCatFase().getTipoFase());
+					detalleProyectoResponse.setFechaFin(lstProyecto.getDetalleProyecto().getFechaFin());
+					detalleProyectoResponse.setFechaInicio(lstProyecto.getDetalleProyecto().getFechaInicio());
+					detalleProyectoResponse.setIdDetalle(lstProyecto.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setTipoProyecto(lstProyecto.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
+					detalleProyectoResponse.setHrsAtencion(lstProyecto.getDetalleProyecto().getHrsAtencion());
+					listaProyectoResponse.setDetalleProyectoResponse(detalleProyectoResponse);
+					
+					listaProyectoResponse.setRecursos(lstProyecto.getUsuario().stream()
+							.map(lstProyUsu -> new PersonaResponse(
+									lstProyUsu.getIdUsuario(),
+									lstProyUsu.getNombre(),
+									lstProyUsu.getApellido(),
+									lstProyUsu.getCorreo(),
+									true
+									)
+								).collect(Collectors.toSet()));
+		
+					
+					return listaProyectoResponse;
+				}).collect(Collectors.toList());
+		
+		
+		return lstProyectoResponses;
 	}
 
 	@Override
@@ -129,7 +167,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		Set<Usuario> usuarioSet = new HashSet<>();
 		//Set<Gerencia> gerenciaSet = new HashSet<>();
 		
-		Usuario usu = repo.findById(1).orElseThrow();
+		Usuario usu = repo.findById(proyectoRequest.getResponsable()).orElseThrow();
 		
 		
 		
@@ -250,6 +288,9 @@ public class ProyectoServiceImpl implements ProyectoService{
 			detProyEnt.setCatDependencias(catDependenciaEnt);
 			detProyEnt.setAvance(detalleProyectoRequest.getPorcentaje());
 			detProyEnt.setCatDocumentacion(catDocuEnt);
+			detProyEnt.setFechaInicio(detalleProyectoRequest.getFechaInicio());
+			detProyEnt.setFechaFin(detalleProyectoRequest.getFechaFin());
+			//detProyEnt.setHrsAtencion(detalleProyectoRequest.getHrsAtencion());
 			//detProy.get().setHrsAtencion(detalleProyectoRequest.getHrsAtencion());;
 			//proyectoMod.setDetalleProyecto(detProy);
 			
@@ -381,8 +422,8 @@ public class ProyectoServiceImpl implements ProyectoService{
 							.map(lstProyUsu -> new PersonaResponse(
 									lstProyUsu.getIdUsuario(),
 									lstProyUsu.getNombre(),
-									"",
-									"",
+									lstProyUsu.getApellido(),
+									lstProyUsu.getCorreo(),
 									true
 									)
 								).collect(Collectors.toSet()));
