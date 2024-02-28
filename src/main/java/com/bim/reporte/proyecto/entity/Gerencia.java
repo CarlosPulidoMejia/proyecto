@@ -14,7 +14,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@Data
 
 public class Gerencia {
 

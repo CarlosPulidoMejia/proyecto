@@ -18,9 +18,6 @@ public interface ProyectoService {
 	
 	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia);
 	
-	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
-	
-	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia);
 	
 	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
 	
@@ -31,8 +28,6 @@ public interface ProyectoService {
 	public void crearObjetivos(ObjetivoRequest objetivo);
 	
 	public void modificarDetalle(int idDetalle,DetalleProyectoRequest detalleProyecto);
-	
-	public List<Proyecto> listaUsu(); 
 	
 	
 

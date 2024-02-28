@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@NoArgsConstructor
 public class DetalleProyectoResponse {
 
 	private int idDetalle;
