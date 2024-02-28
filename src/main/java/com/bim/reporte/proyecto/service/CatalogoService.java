@@ -2,6 +2,7 @@ package com.bim.reporte.proyecto.service;
 
 import java.util.List;
 
+import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -19,5 +20,7 @@ public interface CatalogoService {
 	public List<TipoDependenciaResponse> listarTipoDependencia();
 	
 	public List<TipoEstadoProyectoResponse> listarTipoEstado();
+	
+	public void modificarDependencia(int id,DetalleDependenciaRequest dependenciaRequest);
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bim.reporte.proyecto.feign.TipoProyectoFeign;
+import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -46,6 +47,12 @@ public class CatalogoServiceImpl implements CatalogoService{
 	public List<TipoEstadoProyectoResponse> listarTipoEstado() {
 		// TODO Auto-generated method stub
 		return proyectoFeign.listarTipoEstado();
+	}
+
+	@Override
+	public void modificarDependencia(int id, DetalleDependenciaRequest dependenciaRequest) {
+		// TODO Auto-generated method stub
+		proyectoFeign.modificarDependencia(id, dependenciaRequest);
 	}
 
 	
