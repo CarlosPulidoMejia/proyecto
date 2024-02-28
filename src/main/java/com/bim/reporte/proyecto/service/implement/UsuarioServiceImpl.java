@@ -9,6 +9,7 @@ import com.bim.reporte.proyecto.feign.UsuariosFeign;
 import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
+import com.bim.reporte.proyecto.response.feign.gerencia.RecursosResponse;
 import com.bim.reporte.proyecto.service.UsuarioService;
 
 @Service
@@ -39,6 +40,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public List<RecursosPersonaResponse> listaGerencia(int id) {
 		// TODO Auto-generated method stub
 		return usuariosFeign.listaGerencia(id);
+	}
+
+	@Override
+	public List<RecursosResponse> listarUsuariosTodo() {
+		// TODO Auto-generated method stub
+		return usuariosFeign.listarRecursos();
 	}
 	
 	

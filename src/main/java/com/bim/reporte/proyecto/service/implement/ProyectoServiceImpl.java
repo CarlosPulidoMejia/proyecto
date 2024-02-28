@@ -2,8 +2,10 @@ package com.bim.reporte.proyecto.service.implement;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.bim.reporte.proyecto.entity.CatTipoProyecto;
 import com.bim.reporte.proyecto.entity.DetalleProyecto;
 import com.bim.reporte.proyecto.entity.Objetivo;
 import com.bim.reporte.proyecto.entity.Proyecto;
+import com.bim.reporte.proyecto.entity.Usuario;
 import com.bim.reporte.proyecto.feign.TipoProyectoFeign;
 import com.bim.reporte.proyecto.repository.CatDependenciaRepo;
 import com.bim.reporte.proyecto.repository.CatDocRepo;
@@ -70,7 +73,9 @@ public class ProyectoServiceImpl implements ProyectoService{
 	TipoProyectoFeign proyectoFeign;
 	
 	@Autowired
-	UsuarioRepo usuarioRepo;	
+	private UsuarioRepo repo;
+	
+	
 	
 	
 	@Override
@@ -85,7 +90,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		detalleProyectoResponse.setHrsatencion(0);
 		
 		p*/
-		
+		/*
 		List<ListaProyectoResponse> detalleResponses = lista.stream()
 				.map(proyecto -> 
 				new ListaProyectoResponse(
@@ -107,14 +112,50 @@ public class ProyectoServiceImpl implements ProyectoService{
 						//proyecto.getProyecto())
 				).collect(Collectors.toList());
 		
-		return detalleResponses;
+		*/
+		
+		List<ListaProyectoResponse> lstProyectoResponses = lista.stream()
+				.map(lstProyecto -> {
+					ProyectoResponse proyectoResponse = new ProyectoResponse();
+					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
+					ListaProyectoResponse listaProyectoResponse = new ListaProyectoResponse();
+					proyectoResponse.setIdProyecto(lstProyecto.getIdProyecto());
+					proyectoResponse.setProyecto(lstProyecto.getProyecto());
+					listaProyectoResponse.setProyectoResponse(proyectoResponse);
+					
+					detalleProyectoResponse.setAvance(lstProyecto.getDetalleProyecto().getAvance());
+					detalleProyectoResponse.setDependenciaProy(lstProyecto.getDetalleProyecto().getCatDependencias().getTipoDependencia());
+					detalleProyectoResponse.setDocProy(lstProyecto.getDetalleProyecto().getCatDocumentacion().getTipoDocumentacion());
+					detalleProyectoResponse.setEstadoProy(lstProyecto.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
+					detalleProyectoResponse.setFaseProy(lstProyecto.getDetalleProyecto().getCatFase().getTipoFase());
+					detalleProyectoResponse.setFechaFin(lstProyecto.getDetalleProyecto().getFechaFin());
+					detalleProyectoResponse.setFechaInicio(lstProyecto.getDetalleProyecto().getFechaInicio());
+					detalleProyectoResponse.setIdDetalle(lstProyecto.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setTipoProyecto(lstProyecto.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
+					detalleProyectoResponse.setHrsAtencion(lstProyecto.getDetalleProyecto().getHrsAtencion());
+					listaProyectoResponse.setDetalleProyectoResponse(detalleProyectoResponse);
+					
+					listaProyectoResponse.setRecursos(lstProyecto.getUsuario().stream()
+							.map(lstProyUsu -> new PersonaResponse(
+									lstProyUsu.getIdUsuario(),
+									lstProyUsu.getNombre(),
+									lstProyUsu.getApellido(),
+									lstProyUsu.getCorreo(),
+									true
+									)
+								).collect(Collectors.toSet()));
+		
+					
+					return listaProyectoResponse;
+				}).collect(Collectors.toList());
+		
+		
+		return lstProyectoResponses;
 	}
 
 	@Override
 	public ProyectoResponse guardarProyecto(ProyectoRequest proyectoRequest) {
-		// TODO Auto-generated method stub
-		////Proyecto creatProy = new Proyecto(proyectoRequest.getProyecto());
-		
+
 		Proyecto proyecto = new Proyecto();
 		
 		System.out.println("nombre: " + proyectoRequest.getIdProyecto()); 
@@ -123,10 +164,39 @@ public class ProyectoServiceImpl implements ProyectoService{
 		System.out.println("Fecha fin: " + proyectoRequest.getFechaFin());
 		proyecto.setProyecto(proyectoRequest.getProyecto());
 		
-		//System.out.println("id:" + proye.getIdProyecto());
+		Set<Usuario> usuarioSet = new HashSet<>();
+		//Set<Gerencia> gerenciaSet = new HashSet<>();
 		
+		Usuario usu = repo.findById(proyectoRequest.getResponsable()).orElseThrow();
+		
+		
+		
+	    usuarioSet.add(usu);
+		
+		proyecto.setUsuario(usuarioSet);
+		
+		proyecto.getUsuario().add(usu);
+		
+		//Gerencia gerenEnt = gerenciaRepo.findById(1).orElseThrow();
+		
+		//gerenEnt.setIdGerencia();
+		
+		System.out.println("IP Proyecto: " + proyecto.getIdProyecto());
+		
+		
+		
+		//gerenciaSet.add(gerenEnt);
+		
+		//proyecto.setGerencia(gerenciaSet);
+		
+		//proyecto.getGerencia().add(gerenEnt);
+	
 		
 		Proyecto proye = proyectoRepo.save(proyecto);
+		
+		System.out.println("ID_PROECTO: " + proye.getIdProyecto());
+		
+		proyectoRepo.actualizarGerencia(1,proye.getIdProyecto());
 		
 		DetalleProyecto det = new DetalleProyecto();
 		
@@ -167,7 +237,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 		
 		List<DetalleObjetivo> objetivoRequest = objetivo.getObjetivo();
 		
-		DetalleObjetivo detalleObjetivo = new DetalleObjetivo();
+		//DetalleObjetivo detalleObjetivo = new DetalleObjetivo();
 		
 		
 		
@@ -218,6 +288,9 @@ public class ProyectoServiceImpl implements ProyectoService{
 			detProyEnt.setCatDependencias(catDependenciaEnt);
 			detProyEnt.setAvance(detalleProyectoRequest.getPorcentaje());
 			detProyEnt.setCatDocumentacion(catDocuEnt);
+			detProyEnt.setFechaInicio(detalleProyectoRequest.getFechaInicio());
+			detProyEnt.setFechaFin(detalleProyectoRequest.getFechaFin());
+			//detProyEnt.setHrsAtencion(detalleProyectoRequest.getHrsAtencion());
 			//detProy.get().setHrsAtencion(detalleProyectoRequest.getHrsAtencion());;
 			//proyectoMod.setDetalleProyecto(detProy);
 			
@@ -235,60 +308,16 @@ public class ProyectoServiceImpl implements ProyectoService{
 	@Override
 	public List<ListaProyectoRecursoResponse> listaProyectosRecurso() {
 		// TODO Auto-generated method stub
-		List<Proyecto> listaProyectoEnt = proyectoRepo.findAll();
+		/*List<Proyecto> listaProyectoEnt = proyectoRepo.findAll();
 		
 		/*List<ListaProyectoRecursoResponse> listar = listaProyectoEnt.stream()
 				.map(lst -> new ListaProyectoRecursoResponse(
 						null,lst.getUsuario().
 						)
-						).collect(Collectors.toList());*/
+						).collect(Collectors.toList());
+		return listaProyectoEnt;*/
 		
-		List<ListaProyectoRecursoResponse> listar = listaProyectoEnt.stream()
-				.map(lst -> {
-					ListaProyectoRecursoResponse per = new ListaProyectoRecursoResponse();
-					ProyectoResponse proyectoResponse =  new ProyectoResponse();
-					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
-					proyectoResponse.setIdProyecto(lst.getIdProyecto());
-					proyectoResponse.setProyecto(lst.getProyecto());
-					per.setProyectoResponse(proyectoResponse);
-					//lst.getDetalleProyecto().get
-					detalleProyectoResponse.setAvance(lst.getDetalleProyecto().getAvance());
-					detalleProyectoResponse.setDependenciaProy(lst.getDetalleProyecto().getCatDependencias().getTipoDependencia());
-					detalleProyectoResponse.setDocProy(lst.getDetalleProyecto().getDocAvance());
-					detalleProyectoResponse.setEstadoProy(lst.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
-					detalleProyectoResponse.setFaseProy(lst.getDetalleProyecto().getCatFase().getTipoFase());
-					detalleProyectoResponse.setFechaFin(lst.getDetalleProyecto().fechaFin);
-					detalleProyectoResponse.setFechaInicio(lst.getDetalleProyecto().getFechaInicio());
-					detalleProyectoResponse.setHrsAtencion(lst.getDetalleProyecto().getHrsAtencion());
-					detalleProyectoResponse.setIdDetalle(lst.getDetalleProyecto().getIdDetalle());
-					detalleProyectoResponse.setTipoProyecto(lst.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
-					per.setDetalleProyectoResponse(detalleProyectoResponse);
-					per.setGerencia(lst.getGerencia().stream().map(
-							geren -> new GerenciaResponse(
-									geren.getIdGerencia(),
-									geren.getGerencia()
-									)).collect(Collectors.toSet()));
-					
-					per.setRecurso(lst.getUsuario().stream().map(
-							usu -> new PersonaResponse(
-									usu.getIdUsuario(),
-									usu.getNombre(),
-									usu.getNombre(),
-									usu.getNombre(),
-									(Boolean) true//,
-									/*usu.getGerencias().stream().map(rs -> 
-									new GerenciaResponse(rs.getIdGerencia(),rs.getGerencia())
-									).collect(Collectors.toSet())*/
-									)).collect(Collectors.toSet()));
-					return per;
-				}).collect(Collectors.toList());
-					
-					
-
-				    // Devolver la lista de UsuarioDto
-				    //return dtos;
-				    
-		return listar;
+		return null;
 		/*List<ListaProyectoRecursoResponse> listaProyectoResponselst = new ArrayList<>();
 		
 		ListaProyectoRecursoResponse listaProyectoResponse = new ListaProyectoRecursoResponse();
@@ -320,103 +349,142 @@ public class ProyectoServiceImpl implements ProyectoService{
 	@Override
 	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia) {
 		// TODO Auto-generated method stub
-		List<Proyecto> proyectoEnt = proyectoRepo.buscarUsuariosPorIdGeren(idGerencia);
+		List<Proyecto> listaProyectoEnt = proyectoRepo.listaProyeGerencia(idGerencia);
 		
-		List<ListaProyectoRecursoResponse> listar = proyectoEnt.stream()
-				.map(lst -> {
-					ListaProyectoRecursoResponse per = new ListaProyectoRecursoResponse();
+		List<ListaProyectoRecursoResponse> listaProyectoRecursoResponses = listaProyectoEnt.stream()
+				.map(lstProy -> {
+					ListaProyectoRecursoResponse proyectoRecursoResponse = new ListaProyectoRecursoResponse();
+					ProyectoResponse proyectoResponse = new ProyectoResponse();
 					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
-					ProyectoResponse proyectoResponse =  new ProyectoResponse();
-					proyectoResponse.setIdProyecto(lst.getIdProyecto());
-					proyectoResponse.setProyecto(lst.getProyecto());
-					per.setProyectoResponse(proyectoResponse);
-					detalleProyectoResponse.setAvance(lst.getDetalleProyecto().getAvance());
-					detalleProyectoResponse.setDependenciaProy(lst.getDetalleProyecto().getCatDependencias().getTipoDependencia());
-					detalleProyectoResponse.setDocProy(lst.getDetalleProyecto().getDocAvance());
-					detalleProyectoResponse.setEstadoProy(lst.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
-					detalleProyectoResponse.setFaseProy(lst.getDetalleProyecto().getCatFase().getTipoFase());
-					detalleProyectoResponse.setFechaFin(lst.getDetalleProyecto().fechaFin);
-					detalleProyectoResponse.setFechaInicio(lst.getDetalleProyecto().getFechaInicio());
-					detalleProyectoResponse.setHrsAtencion(lst.getDetalleProyecto().getHrsAtencion());
-					detalleProyectoResponse.setIdDetalle(lst.getDetalleProyecto().getIdDetalle());
-					detalleProyectoResponse.setTipoProyecto(lst.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
-					per.setDetalleProyectoResponse(detalleProyectoResponse);
-					per.setGerencia(lst.getGerencia().stream().map(
-							geren -> new GerenciaResponse(
-									geren.getIdGerencia(),
-									geren.getGerencia()
-									)).collect(Collectors.toSet()));
-							//).collect(Collectors.toSet());
-					per.setRecurso(lst.getUsuario().stream().map(
-							usu -> new PersonaResponse(
-									usu.getIdUsuario(),
-									usu.getNombre(),
-									usu.getNombre(),
-									usu.getNombre(),
-									(Boolean) true//,
-									/*usu.getGerencias().stream().map(rs -> 
-									new GerenciaResponse(rs.getIdGerencia(),rs.getGerencia())
-									).collect(Collectors.toSet())*/
-									)).collect(Collectors.toSet()));
-					return per;
+					proyectoResponse.setIdProyecto(lstProy.getIdProyecto());
+					proyectoResponse.setProyecto(lstProy.getProyecto());
+					proyectoRecursoResponse.setProyecto(proyectoResponse);
+					
+					detalleProyectoResponse.setAvance(lstProy.getDetalleProyecto().getAvance());
+					detalleProyectoResponse.setDependenciaProy(lstProy.getDetalleProyecto().getCatDependencias().getTipoDependencia());
+					detalleProyectoResponse.setEstadoProy(lstProy.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
+					detalleProyectoResponse.setFaseProy(lstProy.getDetalleProyecto().getCatFase().getTipoFase());
+					detalleProyectoResponse.setFechaFin(lstProy.getDetalleProyecto().getFechaFin());
+					detalleProyectoResponse.setFechaInicio(lstProy.getDetalleProyecto().getFechaInicio());
+					detalleProyectoResponse.setHrsAtencion(lstProy.getDetalleProyecto().getHrsAtencion());
+					detalleProyectoResponse.setIdDetalle(lstProy.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setTipoProyecto(lstProy.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
+					
+					proyectoRecursoResponse.setDetalleProyecto(detalleProyectoResponse);
+					proyectoRecursoResponse.setRecursos(lstProy.getUsuario().stream()
+							.map(lstProyUsu -> new PersonaResponse(
+									lstProyUsu.getIdUsuario(),
+									lstProyUsu.getNombre(),
+									"",
+									"",
+									true
+									)
+								).collect(Collectors.toSet()));
+					proyectoRecursoResponse.setGerencia(lstProy.getGerencia().stream()
+							.map(lstProyGeren -> new GerenciaResponse(
+									lstProyGeren.getIdGerencia(),
+									lstProyGeren.getGerencia()
+									)
+								).collect(Collectors.toSet()));
+					
+					return proyectoRecursoResponse;
 				}).collect(Collectors.toList());
-		
-		return listar;
+	    
+		return listaProyectoRecursoResponses;
 	}
 
 	@Override
-	public List<Proyecto> listaUsu() {
+	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia, int idRecurso) {
 		// TODO Auto-generated method stub
-		List<Proyecto> lis = proyectoRepo.buscarUsuariosPorIdRol(2);
+		List<Proyecto> listaProyectoEnt = proyectoRepo.listaProyeGerenciaRecurso(idGerencia,idRecurso);
 		
-		return lis;
+		List<ListaProyectoRecursoResponse> listaProyectoRecursoResponses = listaProyectoEnt.stream()
+				.map(lstProy -> {
+					ListaProyectoRecursoResponse proyectoRecursoResponse = new ListaProyectoRecursoResponse();
+					ProyectoResponse proyectoResponse = new ProyectoResponse();
+					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
+					proyectoResponse.setIdProyecto(lstProy.getIdProyecto());
+					proyectoResponse.setProyecto(lstProy.getProyecto());
+					proyectoRecursoResponse.setProyecto(proyectoResponse);
+					
+					detalleProyectoResponse.setAvance(lstProy.getDetalleProyecto().getAvance());
+					detalleProyectoResponse.setDependenciaProy(lstProy.getDetalleProyecto().getCatDependencias().getTipoDependencia());
+					detalleProyectoResponse.setEstadoProy(lstProy.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
+					detalleProyectoResponse.setFaseProy(lstProy.getDetalleProyecto().getCatFase().getTipoFase());
+					detalleProyectoResponse.setFechaFin(lstProy.getDetalleProyecto().getFechaFin());
+					detalleProyectoResponse.setFechaInicio(lstProy.getDetalleProyecto().getFechaInicio());
+					detalleProyectoResponse.setHrsAtencion(lstProy.getDetalleProyecto().getHrsAtencion());
+					detalleProyectoResponse.setIdDetalle(lstProy.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setTipoProyecto(lstProy.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
+					
+					proyectoRecursoResponse.setDetalleProyecto(detalleProyectoResponse);
+					proyectoRecursoResponse.setRecursos(lstProy.getUsuario().stream()
+							.map(lstProyUsu -> new PersonaResponse(
+									lstProyUsu.getIdUsuario(),
+									lstProyUsu.getNombre(),
+									lstProyUsu.getApellido(),
+									lstProyUsu.getCorreo(),
+									true
+									)
+								).collect(Collectors.toSet()));
+					proyectoRecursoResponse.setGerencia(lstProy.getGerencia().stream()
+							.map(lstProyGeren -> new GerenciaResponse(
+									lstProyGeren.getIdGerencia(),
+									lstProyGeren.getGerencia()
+									)
+								).collect(Collectors.toSet()));
+					
+					return proyectoRecursoResponse;
+				}).collect(Collectors.toList());
+	    
+		return listaProyectoRecursoResponses;
 	}
 
 	@Override
-	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso) {
+	public List<ListaProyectoRecursoResponse> listaProyectosRecurso(int idRecurso) {
 		// TODO Auto-generated method stub
-List<Proyecto> proyectoEnt = proyectoRepo.buscarUsuariosPorIdGerenRec(idGerencia,idRecurso);
+		List<Proyecto> listaProyectoEnt = proyectoRepo.listaProyectoRecurso(idRecurso);
 		
-		List<ListaProyectoRecursoResponse> listar = proyectoEnt.stream()
-				.map(lst -> {
-					ListaProyectoRecursoResponse per = new ListaProyectoRecursoResponse();
+		List<ListaProyectoRecursoResponse> listaProyectoRecursoResponses = listaProyectoEnt.stream()
+				.map(lstProy -> {
+					ListaProyectoRecursoResponse proyectoRecursoResponse = new ListaProyectoRecursoResponse();
+					ProyectoResponse proyectoResponse = new ProyectoResponse();
 					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
-					ProyectoResponse proyectoResponse =  new ProyectoResponse();
-					proyectoResponse.setIdProyecto(lst.getIdProyecto());
-					proyectoResponse.setProyecto(lst.getProyecto());
-					per.setProyectoResponse(proyectoResponse);
-					detalleProyectoResponse.setAvance(lst.getDetalleProyecto().getAvance());
-					detalleProyectoResponse.setDependenciaProy(lst.getDetalleProyecto().getCatDependencias().getTipoDependencia());
-					detalleProyectoResponse.setDocProy(lst.getDetalleProyecto().getDocAvance());
-					detalleProyectoResponse.setEstadoProy(lst.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
-					detalleProyectoResponse.setFaseProy(lst.getDetalleProyecto().getCatFase().getTipoFase());
-					detalleProyectoResponse.setFechaFin(lst.getDetalleProyecto().fechaFin);
-					detalleProyectoResponse.setFechaInicio(lst.getDetalleProyecto().getFechaInicio());
-					detalleProyectoResponse.setHrsAtencion(lst.getDetalleProyecto().getHrsAtencion());
-					detalleProyectoResponse.setIdDetalle(lst.getDetalleProyecto().getIdDetalle());
-					detalleProyectoResponse.setTipoProyecto(lst.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
-					per.setDetalleProyectoResponse(detalleProyectoResponse);
-					per.setGerencia(lst.getGerencia().stream().map(
-							geren -> new GerenciaResponse(
-									geren.getIdGerencia(),
-									geren.getGerencia()
-									)).collect(Collectors.toSet()));
-							//).collect(Collectors.toSet());
-					per.setRecurso(lst.getUsuario().stream().map(
-							usu -> new PersonaResponse(
-									usu.getIdUsuario(),
-									usu.getNombre(),
-									usu.getNombre(),
-									usu.getNombre(),
-									(Boolean) true//,
-									/*usu.getGerencias().stream().map(rs -> 
-									new GerenciaResponse(rs.getIdGerencia(),rs.getGerencia())
-									).collect(Collectors.toSet())*/
-									)).collect(Collectors.toSet()));
-					return per;
+					proyectoResponse.setIdProyecto(lstProy.getIdProyecto());
+					proyectoResponse.setProyecto(lstProy.getProyecto());
+					proyectoRecursoResponse.setProyecto(proyectoResponse);
+					
+					detalleProyectoResponse.setAvance(lstProy.getDetalleProyecto().getAvance());
+					detalleProyectoResponse.setDependenciaProy(lstProy.getDetalleProyecto().getCatDependencias().getTipoDependencia());
+					detalleProyectoResponse.setEstadoProy(lstProy.getDetalleProyecto().getCatEstadoProyecto().getTipoEstado());
+					detalleProyectoResponse.setFaseProy(lstProy.getDetalleProyecto().getCatFase().getTipoFase());
+					detalleProyectoResponse.setFechaFin(lstProy.getDetalleProyecto().getFechaFin());
+					detalleProyectoResponse.setFechaInicio(lstProy.getDetalleProyecto().getFechaInicio());
+					detalleProyectoResponse.setHrsAtencion(lstProy.getDetalleProyecto().getHrsAtencion());
+					detalleProyectoResponse.setIdDetalle(lstProy.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setTipoProyecto(lstProy.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
+					
+					proyectoRecursoResponse.setDetalleProyecto(detalleProyectoResponse);
+					proyectoRecursoResponse.setRecursos(lstProy.getUsuario().stream()
+							.map(lstProyUsu -> new PersonaResponse(
+									lstProyUsu.getIdUsuario(),
+									lstProyUsu.getNombre(),
+									"",
+									"",
+									true
+									)
+								).collect(Collectors.toSet()));
+					proyectoRecursoResponse.setGerencia(lstProy.getGerencia().stream()
+							.map(lstProyGeren -> new GerenciaResponse(
+									lstProyGeren.getIdGerencia(),
+									lstProyGeren.getGerencia()
+									)
+								).collect(Collectors.toSet()));
+					
+					return proyectoRecursoResponse;
 				}).collect(Collectors.toList());
-		
-		return listar;
+	    
+		return listaProyectoRecursoResponses;
 	}
 
 	

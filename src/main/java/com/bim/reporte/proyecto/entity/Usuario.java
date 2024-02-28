@@ -1,17 +1,13 @@
 package com.bim.reporte.proyecto.entity;
 
-import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -28,15 +24,12 @@ public class Usuario {
 	@Column(name = "nombre_vch")
 	private String nombre;
 	
-	@ManyToMany
-    @JoinTable(name = "usuario_gerencia",
-        joinColumns =@JoinColumn(name="id_usuario"),
-        inverseJoinColumns = @JoinColumn(name= "id_gerencia"))
-	@JsonIgnore
-	private Set<Gerencia> gerencias;
+	@Column(name = "apellido_vch")
+	private String apellido;
+
+	@Column(name = "correo_vch")
+	private String correo;
 	
-	/*@ManyToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
-	Set<Proyecto> proyecto;*/
 	
 	/*@ManyToMany(mappedBy = "usuarios")
 	@JsonIgnore

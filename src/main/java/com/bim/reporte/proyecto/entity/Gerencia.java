@@ -1,6 +1,5 @@
 package com.bim.reporte.proyecto.entity;
 
-import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,9 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 
+@Data
 @Entity
 @Data
 
@@ -25,15 +25,7 @@ public class Gerencia {
 	
 	private String gerencia;
 	
-	/*@ManyToMany
-    @JoinTable(name = "usuario_gerencia",
-        joinColumns =@JoinColumn(name="id_gerencia"),
-        inverseJoinColumns = @JoinColumn(name= "id_usuario"))
+	/*@OneToMany(mappedBy = "gerencia")
 	private List<Usuario> usuarios;*/
-	
-	@ManyToMany(mappedBy = "gerencias")
-	@JsonIgnore
-    private List<Usuario> usuarios;
-	
-	
+
 }

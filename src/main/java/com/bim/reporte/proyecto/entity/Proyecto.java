@@ -54,7 +54,7 @@ public class Proyecto {
 	@JsonIgnore
 	private List<Objetivo> objetivos;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	    @JoinTable(
 	            name = "proyecto_recurso",
 	            joinColumns = @JoinColumn(name = "id_proyecto"),
@@ -62,7 +62,8 @@ public class Proyecto {
 	            )
 	    private Set<Usuario> usuario;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
     @JoinTable(
             name = "proyecto_recurso",
             joinColumns = @JoinColumn(name = "id_proyecto"),

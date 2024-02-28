@@ -16,6 +16,4 @@ public class PersonaResponse {
 	private boolean status;
 	//private Set<GerenciaResponse> gerencia;
 	
-	
-	
 }

@@ -36,14 +36,19 @@ public class ProyectoController {
 		return ResponseEntity.ok(proyectoService.listaProyectosRecurso());
 	}
 	
-	@GetMapping("/listaproyectosGerencia/{idGerencia}")
-	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyGeren(@PathVariable("idGerencia") int idGerencia){
+	@GetMapping("/listaProyectosGerencia/{idGerencia}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoGerencia(@PathVariable("idGerencia") int idGerencia){
 		return ResponseEntity.ok(proyectoService.listaProyectosGerencia(idGerencia));
 	}
 	
-	@GetMapping("/listaproyectosGerenciaRecurso/{idGerencia}/{idUsu}")
-	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyGerenRec(@PathVariable("idGerencia") int idGerencia,@PathVariable("idUsu") int id){
-		return ResponseEntity.ok(proyectoService.listaProyectosGerenciaRecurso(idGerencia,id));
+	@GetMapping("/listaProyectosGerenciaRecurso/{idGerencia}/{idRecurso}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoGerenciaRecurso(@PathVariable("idGerencia") int idGerencia,@PathVariable("idRecurso") int idRecurso){
+		return ResponseEntity.ok(proyectoService.listaProyectosGerenciaRecurso(idGerencia,idRecurso));
+	}
+	
+	@GetMapping("/listaProyectosRecurso/{idRecurso}")
+	public ResponseEntity<List<ListaProyectoRecursoResponse>> listarProyectoRecurso(@PathVariable("idRecurso") int idGerencia){
+		return ResponseEntity.ok(proyectoService.listaProyectosRecurso(idGerencia));
 	}
 	
 	@PostMapping("/guardarproyecto")

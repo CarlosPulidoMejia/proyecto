@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
+import com.bim.reporte.proyecto.response.feign.gerencia.RecursosResponse;
 import com.bim.reporte.proyecto.service.UsuarioService;
 
 @RestController
@@ -21,9 +21,14 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/listar")
+	/*@GetMapping("/listar")
 	public ResponseEntity<List<UsuarioResponseFeign>> listar(){
 		return ResponseEntity.ok(usuarioService.listarUsuarios());
+	}
+	*/
+	@GetMapping("/listarUsuarios")
+	public ResponseEntity<List<RecursosResponse>> listarTodo(){
+		return ResponseEntity.ok(usuarioService.listarUsuariosTodo());
 	}
 	
 	@GetMapping("/listarGerencias")

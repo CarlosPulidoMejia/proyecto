@@ -13,4 +13,5 @@ public class ProyectoRequest {
 	private String fechaInicio;
 	private String fechaFin;
 	private int tipoDoc;
+	//private int responsable;
 }

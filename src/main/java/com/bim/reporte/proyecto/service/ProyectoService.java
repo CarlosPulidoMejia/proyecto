@@ -20,6 +20,12 @@ public interface ProyectoService {
 	
 	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
 	
+	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia);
+	
+	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
+	
+	public List<ListaProyectoRecursoResponse> listaProyectosRecurso(int idRecurso);
+	
 	public ProyectoResponse guardarProyecto(ProyectoRequest proyectoRequest);
 	
 	public void crearObjetivos(ObjetivoRequest objetivo);

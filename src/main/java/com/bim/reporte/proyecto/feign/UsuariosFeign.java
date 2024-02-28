@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
+import com.bim.reporte.proyecto.response.feign.gerencia.RecursosResponse;
 
 @FeignClient(name="usuario-service",url = "http://localhost:8083")
 public interface UsuariosFeign {
 	
 	@GetMapping("/usuario/listar")
 	public List<UsuarioResponseFeign> listarUsuario();
+	
+	@GetMapping("/usuario/listaRecursos")
+	public List<RecursosResponse> listarRecursos();
 	
 	@GetMapping("/gerencia/listar")
 	public List<GerenciaResponse> listarGerencia();

@@ -1,5 +1,4 @@
 package com.bim.reporte.proyecto.response;
-
 import java.util.Set;
 
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
@@ -14,10 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ListaProyectoRecursoResponse {
 
-	private ProyectoResponse proyectoResponse;
-	private DetalleProyectoResponse detalleProyectoResponse;
-	private Set<PersonaResponse> recurso;
+	private ProyectoResponse proyecto;
+	private DetalleProyectoResponse detalleProyecto;
+	private Set<PersonaResponse> recursos;
 	private Set<GerenciaResponse> gerencia;
+	//private Set<GerenciaResponse> gerencia;
 	//private Set<ProyectoRecurso> recurso;
 	//private DetalleProyectoResponse detalleProyectoResponse;
 }
