@@ -1,13 +1,13 @@
 package com.bim.reporte.proyecto.response;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class DetalleProyectoResponse {
 
 	private int idDetalle;

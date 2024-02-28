@@ -1,6 +1,5 @@
 package com.bim.reporte.proyecto.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,8 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -30,6 +27,16 @@ public class Usuario {
 	
 	@Column(name = "nombre_vch")
 	private String nombre;
+	
+	@ManyToMany
+    @JoinTable(name = "usuario_gerencia",
+        joinColumns =@JoinColumn(name="id_usuario"),
+        inverseJoinColumns = @JoinColumn(name= "id_gerencia"))
+	@JsonIgnore
+	private Set<Gerencia> gerencias;
+	
+	/*@ManyToMany(mappedBy = "usuario",fetch = FetchType.LAZY)
+	Set<Proyecto> proyecto;*/
 	
 	/*@ManyToMany(mappedBy = "usuarios")
 	@JsonIgnore

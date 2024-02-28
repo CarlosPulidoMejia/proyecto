@@ -1,8 +1,5 @@
 package com.bim.reporte.proyecto.request;
 
-import java.util.Date;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

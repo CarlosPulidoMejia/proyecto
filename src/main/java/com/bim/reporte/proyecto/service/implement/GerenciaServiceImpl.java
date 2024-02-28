@@ -2,7 +2,6 @@ package com.bim.reporte.proyecto.service.implement;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
