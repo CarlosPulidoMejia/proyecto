@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
+import com.bim.reporte.proyecto.request.DetalleEstadoProyectoRequest;
+import com.bim.reporte.proyecto.request.DetalleFaseRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -64,13 +66,29 @@ public class CatalogosController {
 		catalogoService.crearDocumentacion(documentacion);
 	}
 	
+	@GetMapping("/tipoEstado")
+	public ResponseEntity<List<TipoEstadoProyectoResponse>> listaTipoEstado(){
+		return ResponseEntity.ok(catalogoService.listarTipoEstado());
+	}
+	
+	@PutMapping("/modificarEstado")
+	public void modificarEstado (@PathVariable int id, @RequestBody DetalleEstadoProyectoRequest detalleReq) {
+		catalogoService.modificarEstado(id, detalleReq);
+	}
+	
 	@GetMapping("/tipoFase")
 	public ResponseEntity<List<TipoFaseResponse>> listaTipoFase(){
 		return ResponseEntity.ok(catalogoService.listarTipoFase());
 	}
 	
-	@GetMapping("/tipoEstado")
-	public ResponseEntity<List<TipoEstadoProyectoResponse>> listaTipoEstado(){
-		return ResponseEntity.ok(catalogoService.listarTipoEstado());
+	@PutMapping("/modificarFase")
+	public void modificarFase(@PathVariable int id, @RequestBody DetalleFaseRequest detalleReq) {
+		catalogoService.modificarFase(id, detalleReq);
 	}
+	
+	@PostMapping("/crearFase")
+	public void crearFase(@RequestBody DetalleFaseRequest fase) {
+		catalogoService.crearFase(fase);
+	}
+	
 }

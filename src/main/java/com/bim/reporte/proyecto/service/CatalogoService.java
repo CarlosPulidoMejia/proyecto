@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
+import com.bim.reporte.proyecto.request.DetalleEstadoProyectoRequest;
+import com.bim.reporte.proyecto.request.DetalleFaseRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -30,4 +32,10 @@ public interface CatalogoService {
 	public void modificarDocumentacion (int id, DetalleDocumentacionRequest detalleReq);
 	
 	public void crearDocumentacion (DetalleDocumentacionRequest documentacion);
+	
+	public void modificarEstado (int id,  DetalleEstadoProyectoRequest detalleReq);
+	
+	public void modificarFase (int id, DetalleFaseRequest fase);
+	
+	public void crearFase (DetalleFaseRequest fase);
 }
