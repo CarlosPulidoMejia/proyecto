@@ -29,46 +29,46 @@ public interface TipoProyectoFeign {
 	@PutMapping("/catalogos/modificarDependencia/{id}")
 	public void modificarDependencia (@PathVariable int id, @RequestBody DetalleDependenciaRequest detalleReq);
 	
-	@PostMapping("/crearDependencia")
+	@PostMapping("/catalogos/crearDependencia")
 	public void crearDependencia (@RequestBody DetalleDependenciaRequest dependencia);
 	
 	
 	@GetMapping("/catalogos/tipoDocumentacion")
 	public List<TipoDocumentacionResponse> listarTipoDocumentacion();
 	
-	@PutMapping("/modificarDocumentacion/{id}")
+	@PutMapping("/catalogos/modificarDocumentacion/{id}")
 	public void modificarDocumentacion (@PathVariable int id, @RequestBody DetalleDocumentacionRequest detalleReq);
 	
-	@PostMapping("/crearDocumentacion")
+	@PostMapping("/catalogos/crearDocumentacion")
 	public void crearDocumentacion (@RequestBody DetalleDocumentacionRequest documentacion);
 	
 	
 	@GetMapping("/catalogos/tipoEstado")
 	public List<TipoEstadoProyectoResponse> listarTipoEstado();
 	
-	@PutMapping("/modificarEstado/{id}")
+	@PutMapping("/catalogos/modificarEstado/{id}")
 	public void modificarEstado (@PathVariable int id, @RequestBody DetalleEstadoProyectoRequest detalleReq);
 	
-	@PostMapping("/crearEstado")
+	@PostMapping("/catalogos/crearEstado")
 	public void crearEstado (@RequestBody DetalleEstadoProyectoRequest estado);
 	
 	
 	@GetMapping("/catalogos/tipoFase")
 	public List<TipoFaseResponse> listarTipoFase();
 	
-	@PutMapping("/modificarFase/{id}")
+	@PutMapping("/catalogos/modificarFase/{id}")
 	public void modificarFase (@PathVariable int id, @RequestBody DetalleFaseRequest detalleReq);
 	
-	@PostMapping("/crearFase")
+	@PostMapping("/catalogos/crearFase")
 	public void crearFase (@RequestBody DetalleFaseRequest fase);
 	
 	
 	@GetMapping("/catalogos/tipoProyecto")
 	public List<TipoProyectoResponse> listarTipoProyecto();
 	
-	@PutMapping("/modificarTipoProyecto/{id}")
+	@PutMapping("/catalogos/modificarTipoProyecto/{id}")
 	public void modificarTipoProyecto (@PathVariable int id, @RequestBody DetalleTipoProyectoRequest detalleReq);
 	
-	@PostMapping("/crearTipoProyecto")
+	@PostMapping("/catalogos/crearTipoProyecto")
 	public void crearTipoProyecto (@RequestBody DetalleTipoProyectoRequest tipoProyecto);
 }
