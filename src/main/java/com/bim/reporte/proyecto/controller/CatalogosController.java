@@ -76,6 +76,11 @@ public class CatalogosController {
 		catalogoService.modificarEstado(id, detalleReq);
 	}
 	
+	@PostMapping("/crearEstado")
+	public void crearEstado(@RequestBody DetalleEstadoProyectoRequest estado) {
+		catalogoService.crearEstado(estado);
+	}
+	
 	@GetMapping("/tipoFase")
 	public ResponseEntity<List<TipoFaseResponse>> listaTipoFase(){
 		return ResponseEntity.ok(catalogoService.listarTipoFase());

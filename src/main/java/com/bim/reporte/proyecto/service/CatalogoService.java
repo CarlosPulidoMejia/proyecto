@@ -35,6 +35,8 @@ public interface CatalogoService {
 	
 	public void modificarEstado (int id,  DetalleEstadoProyectoRequest detalleReq);
 	
+	public void crearEstado ( DetalleEstadoProyectoRequest estado);
+	
 	public void modificarFase (int id, DetalleFaseRequest fase);
 	
 	public void crearFase (DetalleFaseRequest fase);

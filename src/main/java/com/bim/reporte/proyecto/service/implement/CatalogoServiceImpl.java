@@ -93,4 +93,10 @@ public class CatalogoServiceImpl implements CatalogoService{
 		// TODO Auto-generated method stub
 		proyectoFeign.crearFase(fase);
 	}
+
+	@Override
+	public void crearEstado(DetalleEstadoProyectoRequest estado) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearEstado(estado);
+	}
 }
