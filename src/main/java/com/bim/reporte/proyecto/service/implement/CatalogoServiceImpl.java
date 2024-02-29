@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bim.reporte.proyecto.feign.TipoProyectoFeign;
 import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
+import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -55,5 +56,21 @@ public class CatalogoServiceImpl implements CatalogoService{
 		proyectoFeign.modificarDependencia(id, dependenciaRequest);
 	}
 
-	
+	@Override
+	public void crearDependencia(DetalleDependenciaRequest dependencia) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearDependencia(dependencia);
+	}
+
+	@Override
+	public void modificarDocumentacion(int id, DetalleDocumentacionRequest detalleReq) {
+		// TODO Auto-generated method stub
+		proyectoFeign.modificarDocumentacion(id, detalleReq);
+	}
+
+	@Override
+	public void crearDocumentacion(DetalleDocumentacionRequest documentacion) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearDocumentacion(documentacion);
+	}
 }
