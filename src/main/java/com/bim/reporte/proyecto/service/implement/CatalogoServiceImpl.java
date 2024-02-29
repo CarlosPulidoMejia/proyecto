@@ -10,6 +10,7 @@ import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
 import com.bim.reporte.proyecto.request.DetalleEstadoProyectoRequest;
 import com.bim.reporte.proyecto.request.DetalleFaseRequest;
+import com.bim.reporte.proyecto.request.DetalleTipoProyectoRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -57,25 +58,13 @@ public class CatalogoServiceImpl implements CatalogoService{
 		// TODO Auto-generated method stub
 		proyectoFeign.modificarDependencia(id, dependenciaRequest);
 	}
-
-	@Override
-	public void crearDependencia(DetalleDependenciaRequest dependencia) {
-		// TODO Auto-generated method stub
-		proyectoFeign.crearDependencia(dependencia);
-	}
-
+	
 	@Override
 	public void modificarDocumentacion(int id, DetalleDocumentacionRequest detalleReq) {
 		// TODO Auto-generated method stub
 		proyectoFeign.modificarDocumentacion(id, detalleReq);
 	}
-
-	@Override
-	public void crearDocumentacion(DetalleDocumentacionRequest documentacion) {
-		// TODO Auto-generated method stub
-		proyectoFeign.crearDocumentacion(documentacion);
-	}
-
+	
 	@Override
 	public void modificarEstado(int id, DetalleEstadoProyectoRequest detalleReq) {
 		// TODO Auto-generated method stub
@@ -89,6 +78,18 @@ public class CatalogoServiceImpl implements CatalogoService{
 	}
 
 	@Override
+	public void crearDependencia(DetalleDependenciaRequest dependencia) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearDependencia(dependencia);
+	}
+
+	@Override
+	public void crearDocumentacion(DetalleDocumentacionRequest documentacion) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearDocumentacion(documentacion);
+	}
+
+	@Override
 	public void crearFase(DetalleFaseRequest fase) {
 		// TODO Auto-generated method stub
 		proyectoFeign.crearFase(fase);
@@ -98,5 +99,17 @@ public class CatalogoServiceImpl implements CatalogoService{
 	public void crearEstado(DetalleEstadoProyectoRequest estado) {
 		// TODO Auto-generated method stub
 		proyectoFeign.crearEstado(estado);
+	}
+
+	@Override
+	public void modificarTipoProyecto(int id, DetalleTipoProyectoRequest tipoProyecto) {
+		// TODO Auto-generated method stub
+		proyectoFeign.modificarTipoProyecto(id, tipoProyecto);
+	}
+
+	@Override
+	public void crearTipoProyecto(DetalleTipoProyectoRequest tipoProyecto) {
+		// TODO Auto-generated method stub
+		proyectoFeign.crearTipoProyecto(tipoProyecto);
 	}
 }

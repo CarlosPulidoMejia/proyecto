@@ -7,6 +7,7 @@ import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
 import com.bim.reporte.proyecto.request.DetalleEstadoProyectoRequest;
 import com.bim.reporte.proyecto.request.DetalleFaseRequest;
+import com.bim.reporte.proyecto.request.DetalleTipoProyectoRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -25,19 +26,23 @@ public interface CatalogoService {
 	
 	public List<TipoEstadoProyectoResponse> listarTipoEstado();
 	
-	public void modificarDependencia(int id,DetalleDependenciaRequest dependencia);
+	public void modificarTipoProyecto (int id, DetalleTipoProyectoRequest tipoProyecto);
 	
-	public void crearDependencia (DetalleDependenciaRequest dependencia);
+	public void modificarDependencia(int id,DetalleDependenciaRequest dependencia);
 	
 	public void modificarDocumentacion (int id, DetalleDocumentacionRequest detalleReq);
 	
-	public void crearDocumentacion (DetalleDocumentacionRequest documentacion);
-	
 	public void modificarEstado (int id,  DetalleEstadoProyectoRequest detalleReq);
-	
-	public void crearEstado ( DetalleEstadoProyectoRequest estado);
 	
 	public void modificarFase (int id, DetalleFaseRequest fase);
 	
+	public void crearTipoProyecto(DetalleTipoProyectoRequest tipoProyecto);
+	
+	public void crearDependencia (DetalleDependenciaRequest dependencia);
+	
+	public void crearDocumentacion (DetalleDocumentacionRequest documentacion);
+
+	public void crearEstado ( DetalleEstadoProyectoRequest estado);
+
 	public void crearFase (DetalleFaseRequest fase);
 }

@@ -15,6 +15,7 @@ import com.bim.reporte.proyecto.request.DetalleDependenciaRequest;
 import com.bim.reporte.proyecto.request.DetalleDocumentacionRequest;
 import com.bim.reporte.proyecto.request.DetalleEstadoProyectoRequest;
 import com.bim.reporte.proyecto.request.DetalleFaseRequest;
+import com.bim.reporte.proyecto.request.DetalleTipoProyectoRequest;
 import com.bim.reporte.proyecto.response.feign.TipoDependenciaResponse;
 import com.bim.reporte.proyecto.response.feign.TipoDocumentacionResponse;
 import com.bim.reporte.proyecto.response.feign.TipoEstadoProyectoResponse;
@@ -41,29 +42,9 @@ public class CatalogosController {
 		return ResponseEntity.ok(catalogoService.listarTipoDependencia());
 	}
 	
-	@PutMapping("/modificarDependencia")
-	public void modificarDependencia (@PathVariable int id, @RequestBody DetalleDependenciaRequest detalleReq) {
-		catalogoService.modificarDependencia(id, detalleReq);
-	}
-	
-	@PostMapping("/crearDependencia")
-	public void crearDependencia (@RequestBody DetalleDependenciaRequest dependencia) {
-		catalogoService.crearDependencia(dependencia);
-	}
-	
 	@GetMapping("/tipoDocumentacion")
 	public ResponseEntity<List<TipoDocumentacionResponse>> listaTipoDoc(){
 		return ResponseEntity.ok(catalogoService.listarTipoDoc());
-	}
-	
-	@PutMapping("/modificarDocumentacion")
-	public void modificarDocumentacion (@PathVariable int id, @RequestBody DetalleDocumentacionRequest detalleReq) {
-		catalogoService.modificarDocumentacion(id, detalleReq);
-	}
-	
-	@PostMapping("/crearDocumentacion")
-	public void crearDocumentacion (@RequestBody DetalleDocumentacionRequest documentacion) {
-		catalogoService.crearDocumentacion(documentacion);
 	}
 	
 	@GetMapping("/tipoEstado")
@@ -71,9 +52,44 @@ public class CatalogosController {
 		return ResponseEntity.ok(catalogoService.listarTipoEstado());
 	}
 	
-	@PutMapping("/modificarEstado")
+	@GetMapping("/tipoFase")
+	public ResponseEntity<List<TipoFaseResponse>> listaTipoFase(){
+		return ResponseEntity.ok(catalogoService.listarTipoFase());
+	}
+	
+	@PutMapping("/modificarDependencia/{id}")
+	public void modificarDependencia (@PathVariable int id, @RequestBody DetalleDependenciaRequest detalleReq) {
+		catalogoService.modificarDependencia(id, detalleReq);
+	}
+	
+	@PutMapping("/modificarDocumentacion/{id}")
+	public void modificarDocumentacion (@PathVariable int id, @RequestBody DetalleDocumentacionRequest detalleReq) {
+		catalogoService.modificarDocumentacion(id, detalleReq);
+	}
+	
+	@PutMapping("/modificarEstado/{id}")
 	public void modificarEstado (@PathVariable int id, @RequestBody DetalleEstadoProyectoRequest detalleReq) {
 		catalogoService.modificarEstado(id, detalleReq);
+	}
+	
+	@PutMapping("/modificarFase/{id}")
+	public void modificarFase(@PathVariable int id, @RequestBody DetalleFaseRequest detalleReq) {
+		catalogoService.modificarFase(id, detalleReq);
+	}
+	
+	@PutMapping("/modificarTipoProyecto/{id}")
+	public void modificarTipoProyecto (@PathVariable int id, @RequestBody DetalleTipoProyectoRequest detalleReq) {
+		catalogoService.modificarTipoProyecto(id, detalleReq);
+	}
+	
+	@PostMapping("/crearDependencia")
+	public void crearDependencia (@RequestBody DetalleDependenciaRequest dependencia) {
+		catalogoService.crearDependencia(dependencia);
+	}
+	
+	@PostMapping("/crearDocumentacion")
+	public void crearDocumentacion (@RequestBody DetalleDocumentacionRequest documentacion) {
+		catalogoService.crearDocumentacion(documentacion);
 	}
 	
 	@PostMapping("/crearEstado")
@@ -81,19 +97,13 @@ public class CatalogosController {
 		catalogoService.crearEstado(estado);
 	}
 	
-	@GetMapping("/tipoFase")
-	public ResponseEntity<List<TipoFaseResponse>> listaTipoFase(){
-		return ResponseEntity.ok(catalogoService.listarTipoFase());
-	}
-	
-	@PutMapping("/modificarFase")
-	public void modificarFase(@PathVariable int id, @RequestBody DetalleFaseRequest detalleReq) {
-		catalogoService.modificarFase(id, detalleReq);
-	}
-	
 	@PostMapping("/crearFase")
 	public void crearFase(@RequestBody DetalleFaseRequest fase) {
 		catalogoService.crearFase(fase);
 	}
 	
+	@PostMapping("/crearTipoProyecto")
+	public void crearTipoProyecto (@RequestBody DetalleTipoProyectoRequest tipoProyecto) {
+		catalogoService.crearTipoProyecto(tipoProyecto);
+	}
 }
