@@ -108,4 +108,6 @@ public class CatalogosController {
 	public void crearTipoProyecto (@RequestBody DetalleTipoProyectoRequest tipoProyecto) {
 		catalogoService.crearTipoProyecto(tipoProyecto);
 	}
+	
+	
 }
