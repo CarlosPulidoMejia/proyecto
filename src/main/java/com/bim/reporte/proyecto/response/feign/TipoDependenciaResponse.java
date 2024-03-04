@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class TipoDependenciaResponse {
 	public int idDependencia;
-
+	public boolean status;
 
 	public String tipoDependencia;
 }
