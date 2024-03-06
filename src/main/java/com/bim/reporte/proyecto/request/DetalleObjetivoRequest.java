@@ -10,8 +10,10 @@ public class DetalleObjetivoRequest {
 	
 	private int idObjetivo;
 	
-	private String comentario;
+	private String detalleObjetivo;
 	
-	private Boolean status;
+	private int status;
+	
+	private String comentarioProyecto;
 	
 }

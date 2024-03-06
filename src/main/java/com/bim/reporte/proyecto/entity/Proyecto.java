@@ -40,6 +40,8 @@ public class Proyecto {
 	@Column(name = "proyecto_vch")
 	public String proyecto;
 	
+	public int status;
+	
 	@OneToOne(mappedBy = "catProyecto")
 	@JsonIgnore
 	private DetalleProyecto detalleProyecto;

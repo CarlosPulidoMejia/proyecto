@@ -22,19 +22,26 @@ public class ObjetivoController {
 	@Autowired
 	private ObjetivoService objetivoService;
 	
-	@PutMapping("/editar/{idProyecto}")
+	@PutMapping("/editarComentario/{idProyecto}")
 	public void comentarioObjetivo(@PathVariable("idProyecto") int idProyecto,@RequestBody DetalleObjetivoRequest objetivoRequest) {
 		objetivoService.comentariosObjetivo(idProyecto, objetivoRequest);
 	}
 	
-	@GetMapping("/detalle/{idProyecto}")
-	public ResponseEntity<List<ObjetivoResponse>> listaObjetivo(@PathVariable("idProyecto") int idProyecto){
+	@GetMapping("/listarToDo/{idProyecto}")
+	public ResponseEntity<List<ObjetivoResponse>> listaObjetivoToDo(@PathVariable("idProyecto") int idProyecto){
 		System.out.println("ID PROY: " + idProyecto);
 		
 		return ResponseEntity.ok(objetivoService.listaObjetivoProyecto(idProyecto));
 	}
+	
+	@GetMapping("/listarDocumentacion/{idProyecto}")
+	public ResponseEntity<List<ObjetivoResponse>> listaObjetivoAvance(@PathVariable("idProyecto") int idProyecto){
+		System.out.println("ID PROY: " + idProyecto);
+		
+		return ResponseEntity.ok(objetivoService.listaObjetivoProyectoSemana(idProyecto));
+	}
 
-	@PutMapping("detalleObj/{idObjetivo}")
+	@PutMapping("/modificarDocumentacion/{idObjetivo}")
 	public void modificarDetalle(@PathVariable("idObjetivo") int idObjetivo,@RequestBody DetalleObjetivoRequest detalleObjetivoRequest) {
 		objetivoService.modificarObjetivo(idObjetivo, detalleObjetivoRequest);
 	}

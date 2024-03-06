@@ -15,6 +15,8 @@ public class ProyectoResponse {
 
 	public String proyecto;
 	
+	private int statusProy;
+	
 	//public DetalleProyectoResponse detalleProyecto;
 	
 	

@@ -31,4 +31,9 @@ public interface ProyectoRepo extends JpaRepository<Proyecto, Integer>{
 	@Query(value = "UPDATE proyecto_recurso SET id_gerencia = :nuevaGerencia WHERE id_proyecto = :idProyecto", nativeQuery = true)
 	void actualizarGerencia(@Param("nuevaGerencia") int nuevaGerenciaId, @Param("idProyecto") int idProyecto);
 	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "CALL CerrarSemana(:idGerencia)")
+    void cerrarSemanaProyectos(@Param("idGerencia")int idGerencia);
+	
 }

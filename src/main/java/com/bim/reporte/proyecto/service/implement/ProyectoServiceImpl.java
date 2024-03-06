@@ -30,7 +30,9 @@ import com.bim.reporte.proyecto.repository.DetalleProyectoRepo;
 import com.bim.reporte.proyecto.repository.ObjetivoRepo;
 import com.bim.reporte.proyecto.repository.ProyectoRepo;
 import com.bim.reporte.proyecto.repository.UsuarioRepo;
+import com.bim.reporte.proyecto.request.ComentarioProyectoRequest;
 import com.bim.reporte.proyecto.request.DetalleObjetivo;
+import com.bim.reporte.proyecto.request.DetalleObjetivoRequest;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
@@ -133,6 +135,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 					detalleProyectoResponse.setIdDetalle(lstProyecto.getDetalleProyecto().getIdDetalle());
 					detalleProyectoResponse.setTipoProyecto(lstProyecto.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
 					detalleProyectoResponse.setHrsAtencion(lstProyecto.getDetalleProyecto().getHrsAtencion());
+					detalleProyectoResponse.setComentario(lstProyecto.getDetalleProyecto().getComentario());
 					listaProyectoResponse.setDetalleProyectoResponse(detalleProyectoResponse);
 					
 					listaProyectoResponse.setRecursos(lstProyecto.getUsuario().stream()
@@ -358,6 +361,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 					DetalleProyectoResponse detalleProyectoResponse = new DetalleProyectoResponse();
 					proyectoResponse.setIdProyecto(lstProy.getIdProyecto());
 					proyectoResponse.setProyecto(lstProy.getProyecto());
+					proyectoResponse.setStatusProy(lstProy.getStatus());
 					proyectoRecursoResponse.setProyecto(proyectoResponse);
 					
 					detalleProyectoResponse.setAvance(lstProy.getDetalleProyecto().getAvance());
@@ -368,6 +372,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 					detalleProyectoResponse.setFechaInicio(lstProy.getDetalleProyecto().getFechaInicio());
 					detalleProyectoResponse.setHrsAtencion(lstProy.getDetalleProyecto().getHrsAtencion());
 					detalleProyectoResponse.setIdDetalle(lstProy.getDetalleProyecto().getIdDetalle());
+					detalleProyectoResponse.setComentario(lstProy.getDetalleProyecto().getComentario());
 					detalleProyectoResponse.setTipoProyecto(lstProy.getDetalleProyecto().getCatTipoProyecto().getTipoProyecto());
 					
 					proyectoRecursoResponse.setDetalleProyecto(detalleProyectoResponse);
@@ -485,6 +490,25 @@ public class ProyectoServiceImpl implements ProyectoService{
 				}).collect(Collectors.toList());
 	    
 		return listaProyectoRecursoResponses;
+	}
+
+	@Override
+	public void comentarioProyecto(int idProyecto,ComentarioProyectoRequest comentarioProyectoRequest) {
+		// TODO Auto-generated method stub
+		int detalleProy = detalleProyectoRepo.obtenerDetalle(idProyecto);
+		Optional<DetalleProyecto> detProy = detalleProyectoRepo.findById(detalleProy);
+		
+		DetalleProyecto detalleProyectoEnt = detProy.get();
+		
+		detalleProyectoEnt.setComentario(comentarioProyectoRequest.getComentarioProyecto());
+		
+		detalleProyectoRepo.save(detalleProyectoEnt);
+	}
+
+	@Override
+	public void cierreSemanal(int idGerencia) {
+		// TODO Auto-generated method stub
+		proyectoRepo.cerrarSemanaProyectos(idGerencia);
 	}
 	
 	
