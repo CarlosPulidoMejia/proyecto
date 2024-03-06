@@ -11,5 +11,7 @@ public interface ObjetivoService {
 	
 	public List<ObjetivoResponse> listaObjetivoProyecto(int idProyecto);
 	
+	public List<ObjetivoResponse> listaObjetivoProyectoSemana(int idProyecto);
+	
 	public void modificarObjetivo (int idObjetivo,DetalleObjetivoRequest detalleObjetivoRequest);
 }

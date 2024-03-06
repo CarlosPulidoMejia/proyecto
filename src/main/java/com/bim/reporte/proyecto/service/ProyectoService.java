@@ -3,6 +3,8 @@ package com.bim.reporte.proyecto.service;
 import java.util.List;
 
 import com.bim.reporte.proyecto.entity.Proyecto;
+import com.bim.reporte.proyecto.request.ComentarioProyectoRequest;
+import com.bim.reporte.proyecto.request.DetalleObjetivoRequest;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
@@ -18,7 +20,6 @@ public interface ProyectoService {
 	
 	public List<ListaProyectoRecursoResponse> listaProyectosGerencia(int idGerencia);
 	
-	
 	public List<ListaProyectoRecursoResponse> listaProyectosGerenciaRecurso(int idGerencia,int idRecurso);
 	
 	public List<ListaProyectoRecursoResponse> listaProyectosRecurso(int idRecurso);
@@ -28,6 +29,10 @@ public interface ProyectoService {
 	public void crearObjetivos(ObjetivoRequest objetivo);
 	
 	public void modificarDetalle(int idDetalle,DetalleProyectoRequest detalleProyecto);
+	
+	public void comentarioProyecto(int idProyecto, ComentarioProyectoRequest comentarioProyectoRequest);
+	
+	public void cierreSemanal(int idGerencia);
 	
 	
 

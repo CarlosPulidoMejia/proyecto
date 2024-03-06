@@ -21,7 +21,7 @@ public class Objetivo {
 	@Column(name = "id_objetivo")
 	private int idObjetivo;
 	
-	private boolean status;
+	private int status;
 	
 	private String detalle;
 	

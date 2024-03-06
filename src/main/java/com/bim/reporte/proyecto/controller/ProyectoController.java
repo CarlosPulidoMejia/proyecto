@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bim.reporte.proyecto.request.ComentarioProyectoRequest;
 import com.bim.reporte.proyecto.request.DetalleProyectoRequest;
 import com.bim.reporte.proyecto.request.ObjetivoRequest;
 import com.bim.reporte.proyecto.request.ProyectoRequest;
@@ -65,6 +66,17 @@ public class ProyectoController {
 	public void guardarObjetivo(@PathVariable int id,@RequestBody DetalleProyectoRequest detalleReq) {
 		System.out.println("id mod:" + id);
 		proyectoService.modificarDetalle(id,detalleReq);
+	}
+	
+	@GetMapping("/cierreSemanal/{idGerencia}")
+	public void cerrarSemana(@PathVariable ("idGerencia") int idGerencia) {
+		proyectoService.cierreSemanal(idGerencia);
+	}
+	
+	@PutMapping("/comentario/{idProyecto}")
+	public void modificarComentario(@PathVariable("idProyecto") int id,@RequestBody ComentarioProyectoRequest comentarioProyectoRequest) {
+		System.out.println("id mod:" + id);
+		proyectoService.comentarioProyecto(id,comentarioProyectoRequest);
 	}
 	
 }

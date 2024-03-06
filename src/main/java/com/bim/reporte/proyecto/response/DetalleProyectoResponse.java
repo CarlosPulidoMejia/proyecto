@@ -19,6 +19,7 @@ public class DetalleProyectoResponse {
 	private String dependenciaProy;
 	private int avance;
 	private String docProy;
+	private String comentario;
 	/*private String fechaInicio;
 	private String fechaFin;
 	private String fase;*/
