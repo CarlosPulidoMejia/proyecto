@@ -8,6 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class TipoProyectoResponse {
 	public int idTipoProyecto;
-	
+	public boolean status;
 	public String tipoProyecto;
 }

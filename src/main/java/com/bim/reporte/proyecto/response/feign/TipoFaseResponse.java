@@ -8,5 +8,6 @@ import lombok.Data;
 public class TipoFaseResponse {
 
 	private int idFase;
+	private boolean status;
 	private String fase;
 }
