@@ -252,6 +252,7 @@ public class ProyectoServiceImpl implements ProyectoService{
 			System.out.println("com: " + objetivoRequest.get(i).getDetalle());
 			//objetivo.setObjetivo(objetivoRequest);
 			obj.setProyecto(proyecto);
+			obj.setStatus(0);
 			obj.setDetalle(objetivoRequest.get(i).getDetalle());
 			listObj.add(obj);
 			

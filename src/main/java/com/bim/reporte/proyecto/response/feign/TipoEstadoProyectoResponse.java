@@ -8,6 +8,7 @@ import lombok.Data;
 public class TipoEstadoProyectoResponse {
 
 	public int idTipoEstado;
+	private boolean status;
 	public String tipoEstado;
 	
 }

@@ -10,4 +10,5 @@ public class TipoProyectoResponse {
 	public int idTipoProyecto;
 	
 	public String tipoProyecto;
+	private boolean status;
 }

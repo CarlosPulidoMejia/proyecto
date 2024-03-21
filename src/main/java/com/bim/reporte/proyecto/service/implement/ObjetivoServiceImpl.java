@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.bim.reporte.proyecto.entity.Objetivo;
 import com.bim.reporte.proyecto.entity.Proyecto;
 import com.bim.reporte.proyecto.repository.ObjetivoRepo;
+import com.bim.reporte.proyecto.request.ComentarioProyectoRequest;
+import com.bim.reporte.proyecto.request.DetalleComentarioRequest;
 import com.bim.reporte.proyecto.request.DetalleObjetivoRequest;
 import com.bim.reporte.proyecto.response.ObjetivoResponse;
 import com.bim.reporte.proyecto.service.ObjetivoService;
@@ -25,16 +27,18 @@ public class ObjetivoServiceImpl implements ObjetivoService{
 	private ProyectoService proyectoService;
 
 	@Override
-	public void comentariosObjetivo(int idProyecto,DetalleObjetivoRequest detalleObjetivoRequest) {
+	public void comentariosObjetivo(int idProyecto,ComentarioProyectoRequest comentarioProyectoRequest) {
 		// TODO Auto-generated method stub
-		Optional<Objetivo> optObjetivoEnt = objetivoRepo.findById(detalleObjetivoRequest.getIdObjetivo());
+		/*Optional<Objetivo> optObjetivoEnt = objetivoRepo.findById(detalleObjetivoRequest.getIdObjetivo());
 		
 		Objetivo objetivoEnt = optObjetivoEnt.get();
 		
 		objetivoEnt.setComentarioDetalle("Test");
 		objetivoEnt.setStatus(detalleObjetivoRequest.getStatus());
 		
-		objetivoRepo.save(objetivoEnt);
+		objetivoRepo.save(objetivoEnt);*/
+		
+		proyectoService.comentarioProyecto(idProyecto,comentarioProyectoRequest);
 		
 		
 	}

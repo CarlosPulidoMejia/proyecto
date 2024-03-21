@@ -9,4 +9,5 @@ public class TipoFaseResponse {
 
 	private int idFase;
 	private String fase;
+	private boolean status;
 }

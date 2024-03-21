@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bim.reporte.proyecto.feign.UsuariosFeign;
+import com.bim.reporte.proyecto.request.feign.usuario.UsuarioRequest;
 import com.bim.reporte.proyecto.response.feign.UsuarioResponseFeign;
 import com.bim.reporte.proyecto.response.feign.gerencia.GerenciaResponse;
 import com.bim.reporte.proyecto.response.feign.gerencia.RecursosPersonaResponse;
@@ -46,6 +47,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public List<RecursosResponse> listarUsuariosTodo() {
 		// TODO Auto-generated method stub
 		return usuariosFeign.listarRecursos();
+	}
+
+	@Override
+	public void crearUsuario(UsuarioRequest request) {
+		// TODO Auto-generated method stub
+		usuariosFeign.crearUsuario(request);
+	}
+
+	@Override
+	public void modificarUsuario(int idUsuario, UsuarioRequest request) {
+		// TODO Auto-generated method stub
+		usuariosFeign.modificarUsuario(idUsuario, request);
 	}
 	
 	
